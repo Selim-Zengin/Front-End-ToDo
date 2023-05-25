@@ -1,5 +1,6 @@
 const addForm=document.querySelector('.add');
 const list=document.querySelector('.todos');
+const serach=document.querySelector('.serach input');
 
 const generateTmplate =todo=>{
     const html=`
@@ -27,4 +28,22 @@ list.addEventListener('click',e=>{
     {
         e.target.parentElement.remove();
     }
+})
+
+
+const filterTodos=term=>{
+   Array.from(list.children)
+   
+   .filter(todo=> !todo.textContent.includes(term))  // ! işareti içerymiyorsa anlamına gelir aşağıda bu işaret yok bu yüzden içeriyor anlamına gelir
+   .forEach(todo=> todo.classList.add('filtered'));
+    
+   Array.from(list.children)
+   .filter(todo=> todo.textContent.includes(term))
+   .forEach(todo=> todo.classList.remove('filtered'));
+
+}
+
+serach.addEventListener('keyup',()=>{
+    const term=serach.value.trim();
+    filterTodos(term);
 })
